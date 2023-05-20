@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>CMS APP</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body {% if request.session.dark_mode %} class="dark-mode" {% endif %}>
+    <header>
+        <h1>My app CMS</h1>
+        <button id="darkModeButton" class="dark-mode-button">Toggle Dark Mode</button>
+    </header>
+
+    <div class="board-wrapper">
+        <div class="board">
+            <div class="column todo-column">
+                <h2>Todo</h2>
+                <div class="task">
+                    <p>Zadanie 1</p>
+                </div>
+                <div class="task">
+                    <p>Zadanie 2</p>
+                </div>
+            </div>
+
+            <div class="column in-progress-column">
+                <h2>In Progress</h2>
+                <div class="task">
+                    <p>Zadanie 3</p>
+                </div>
+                <div class="task">
+                    <p>Zadanie 4</p>
+                </div>
+            </div>
+
+            <div class="column done-column">
+                <h2>Done</h2>
+                <div class="task">
+                    <p>Zadanie 5</p>
+                </div>
+                <div class="task">
+                    <p>Zadanie 6</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const darkModeButton = document.getElementById('darkModeButton');
+
+        darkModeButton.addEventListener('click', toggleDarkMode);
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            document.querySelector('.board-wrapper').classList.toggle('dark-mode');
+            document.querySelectorAll('.column').forEach(column => {
+                column.classList.toggle('dark-mode');
+            });
+            document.querySelectorAll('.task').forEach(task => {
+                task.classList.toggle('dark-mode');
+            });
+        }
+    </script>
+</body>
+
+</html>

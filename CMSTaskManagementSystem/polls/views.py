@@ -3,4 +3,4 @@ from django.http import HttpResponse
 
 
 def index(request):
-    return HttpResponse("Hello lets start a cms project!")
+    return render(request, 'polls/index.html')

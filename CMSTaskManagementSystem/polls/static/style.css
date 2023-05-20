@@ -1,0 +1,122 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #F6F8FA;
+  color: #172B4D;
+  transition: background-color 0.3s ease;
+}
+
+header {
+  background-color: #0052CC;
+  color: #FFFFFF;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+  
+  h1 {
+    margin: 0;
+    font-size: 24px;
+  }
+  
+  .board-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .board {
+    display: flex;
+    justify-content: space-between;
+    width: 800px;
+    padding: 20px;
+  }
+  
+  .column {
+    flex: 1;
+    padding: 20px;
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .column h2 {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #172B4D;
+  }
+  
+  .task {
+    background-color: #EBECF0;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+  }
+  
+  .task p {
+    margin: 0;
+    font-size: 14px;
+    color: #172B4D;
+  }
+  
+  .task:hover {
+    background-color: #DADCE0;
+  }
+  
+  .todo-column {
+    background-color: #EBECF0;
+  }
+  
+  .in-progress-column {
+    background-color: #FFAB00;
+  }
+  
+  .done-column {
+    background-color: #36B37E;
+  }
+  
+  .dark-mode-button {
+    background-color: #172B4D;
+    color: #FFFFFF;
+    padding: 10px 16px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+
+  /* Dark mode styles */
+  body.dark-mode {
+    background-color: #172B4D;
+    color: #FFFFFF;
+  }
+  
+  header.dark-mode {
+    background-color: #222222;
+  }
+  
+  .board-wrapper.dark-mode {
+    background-color: #2C384A;
+  }
+  
+  .column.dark-mode {
+    background-color: #2C384A;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  .column.dark-mode h2 {
+    color: #FFFFFF;
+  }
+  
+  .task.dark-mode {
+    background-color: #172B4D;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  .task.dark-mode p {
+    color: #FFFFFF;
+  }
