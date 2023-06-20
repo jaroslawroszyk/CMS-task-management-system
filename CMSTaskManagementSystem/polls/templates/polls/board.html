@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Webpage</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="banner">
+            <h1 class="banner-text">Jeszcze jak</h1>
+            <div class="user-profile">
+                <img src="https://static.vecteezy.com/system/resources/thumbnails/004/511/281/small/default-avatar-photo-placeholder-profile-picture-vector.jpg"
+                    alt="Avatar" class="avatar">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2 col-sm-3 col-xs-12 side-menu">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add
+                    board</button>
+                <h3>Active Board:</h3>
+                <select name="boards" id="board-select" class="form-control">
+                    {% for board in boards %}
+                    <option value='{{ board.id }}'>{{ board.name }}</option>
+                    {% endfor %}
+                </select>
+
+                <br><button class="btn btn-primary" id="delete-board-btn">Delete</button>
+                <div class="user-list">
+                    <h4>Users:</h4>
+                    <ul>
+                        <li><a>test1 </a><button>Remove</button></li>
+                        <li><a>test2 </a><button>Remove</button></li>
+                    </ul>
+                    <button class="btn btn-primary">Add user</button>
+                </div>
+            </div>
+
+            <div class="col-md-10 col-sm-9 col-xs-12 content">
+                <div class="task-columns">
+                    <div class="task-column" id="task_todo">
+                        <div class="task-header">
+                            <h4 class="task-title">To do</h4>
+                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                data-target="#addTaskModal">
+                                Add Task
+                            </button>
+                        </div>
+                        <div class="task_list" id="task_todo_list">
+                            <div class="task" draggable="true">Task 1</div>
+                    <div class="task" draggable="true">Task 2</div>
+                    <div class="task" draggable="true">Task 3</div>
+                        </div>
+                    </div>
+                    <div class="task-column" id="task_inprog">
+                        <div class="task-header">
+                            <h4 class="task-title">In progress</h4>
+                        </div>
+                        <div class="task_list" id="task_inprog_list">
+                            <div class="task" draggable="true">Task 4</div>
+                        </div>
+                    </div>
+                    <div class="task-column" id="task_done">
+                        <div class="task-header">
+                            <h4 class="task-title">Done</h4>
+                        </div>
+                        <div class="task_list" id="task_done_list"></div>
+                        <div class="task" draggable="true">Task 5</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
