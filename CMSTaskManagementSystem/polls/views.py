@@ -22,6 +22,16 @@ def board(request):
 
     return render(request, 'polls/board.html', {'boards': boards})
 
+@login_required
+def add_board(request):
+    if request.method == 'POST':
+        board_name = request.POST.get('board_name')
+        creator = request.user
+        board = Boards(name=board_name, creator=creator)
+        board.save()
+        return redirect('board')
+    return render(request, 'board.html')
+
 
 
 class CustomLoginView(LoginView):
