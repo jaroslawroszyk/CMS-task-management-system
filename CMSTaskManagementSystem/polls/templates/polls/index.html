@@ -1,68 +1,69 @@
-{% load static %}
 <!DOCTYPE html>
 <html>
-
 <head>
-    <title>CMS APP</title>
-    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>Welcome to My Website</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8f9fa;
+        }
+
+        .login-form {
+            max-width: 400px;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-form h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .login-form p {
+            margin-bottom: 20px;
+            color: #777;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .login-form .form-control {
+            height: 40px;
+            font-size: 14px;
+        }
+
+        .login-form .btn-primary {
+            width: 100%;
+            height: 40px;
+            font-size: 16px;
+        }
+    </style>
 </head>
-
-<body {% if request.session.dark_mode %} class="dark-mode" {% endif %}>
-    <header>
-        <h1>My app CMS</h1>
-        <button id="darkModeButton" class="dark-mode-button">Toggle Dark Mode</button>
-    </header>
-
-    <div class="board-wrapper">
-        <div class="board">
-            <div class="column todo-column">
-                <h2>Todo</h2>
-                <div class="task">
-                    <p>Zadanie 1</p>
-                </div>
-                <div class="task">
-                    <p>Zadanie 2</p>
-                </div>
+<body>
+    <div class="login-form">
+        <h1>Welcome to Boards</h1>
+        <p>Please create an account or login to access the website.</p>
+        <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="username" class="form-label">Username:</label>
+                <input type="text" id="username" name="username" class="form-control" required>
             </div>
-
-            <div class="column in-progress-column">
-                <h2>In Progress</h2>
-                <div class="task">
-                    <p>Zadanie 3</p>
-                </div>
-                <div class="task">
-                    <p>Zadanie 4</p>
-                </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password:</label>
+                <input type="password" id="password" name="password" class="form-control" required>
             </div>
-
-            <div class="column done-column">
-                <h2>Done</h2>
-                <div class="task">
-                    <p>Zadanie 5</p>
-                </div>
-                <div class="task">
-                    <p>Zadanie 6</p>
-                </div>
-            </div>
-        </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+        <br><button id="register" class="btn btn-primary" onclick="location.href='{% url 'register' %}'">Register</button>
     </div>
 
-    <script>
-        const darkModeButton = document.getElementById('darkModeButton');
-
-        darkModeButton.addEventListener('click', toggleDarkMode);
-
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
-            document.querySelector('.board-wrapper').classList.toggle('dark-mode');
-            document.querySelectorAll('.column').forEach(column => {
-                column.classList.toggle('dark-mode');
-            });
-            document.querySelectorAll('.task').forEach(task => {
-                task.classList.toggle('dark-mode');
-            });
-        }
-    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"></script>
 </body>
-
 </html>

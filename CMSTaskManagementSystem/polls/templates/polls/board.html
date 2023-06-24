@@ -2,42 +2,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My Webpage</title>
+    <title>Boards</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
 <body>
     <div class="container-fluid">
         <div class="banner">
-            <h1 class="banner-text">Jeszcze jak</h1>
-            <div class="user-profile">
-                <img src="https://static.vecteezy.com/system/resources/thumbnails/004/511/281/small/default-avatar-photo-placeholder-profile-picture-vector.jpg"
-                    alt="Avatar" class="avatar">
+            <div class="dropdown user-profile">
             </div>
         </div>
-
         <div class="row">
             <div class="col-md-2 col-sm-3 col-xs-12 side-menu">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Add
-                    board</button>
-                <h3>Active Board:</h3>
-                <select name="boards" id="board-select" class="form-control">
-                    {% for board in boards %}
-                    <option value='{{ board.id }}'>{{ board.name }}</option>
-                    {% endfor %}
-                </select>
-
-                <br><button class="btn btn-primary" id="delete-board-btn">Delete</button>
+                <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a><br><br>
+                <a href="{% url 'board_selector' %}" class="btn btn-primary">Change board</a><br><br>
+                {% if admin %}
+                <h3>Owner Panel:</h3>
+                <br><a href="{% url 'delete_board' board_id=board_id %}" id="delete-board-btn"
+                    class="btn btn-primary">Delete Board</a>
+                {% else %}
+                <a href="{% url 'leave_board' board_id=board_id %}" id="delete-board-btn" class="btn btn-primary">Leave
+                    Board</a><br>
+                {% endif %}
+                <br>
                 <div class="user-list">
+                    {% if admin %}
+                    {% if users %}
                     <h4>Users:</h4>
                     <ul>
-                        <li><a>test1 </a><button>Remove</button></li>
-                        <li><a>test2 </a><button>Remove</button></li>
+                        {% for user in users %}
+                        <li><a>{{ user.username }}</a></li>
+                        {% endfor %}
                     </ul>
-                    <button class="btn btn-primary">Add user</button>
+                    {% endif %}
+
+                    <br><a href="{% url 'add_user' board_id=board_id %}" class="btn btn-primary">Add user</a>
+                    {% endif %}
                 </div>
             </div>
 
@@ -52,9 +54,9 @@
                             </button>
                         </div>
                         <div class="task_list" id="task_todo_list">
-                            <div class="task" draggable="true">Task 1</div>
-                    <div class="task" draggable="true">Task 2</div>
-                    <div class="task" draggable="true">Task 3</div>
+                            {% for taskd in t_todo %}
+                            <div class="task" id="{{ taskd.id }}" draggable="true">{{ taskd.title }}</div>
+                            {% endfor %}
                         </div>
                     </div>
                     <div class="task-column" id="task_inprog">
@@ -62,19 +64,27 @@
                             <h4 class="task-title">In progress</h4>
                         </div>
                         <div class="task_list" id="task_inprog_list">
-                            <div class="task" draggable="true">Task 4</div>
+                            {% for taskd in t_inprog %}
+                            <div class="task" id="{{ taskd.id }}" draggable="true">{{ taskd.title }}</div>
+                            {% endfor %}
                         </div>
                     </div>
                     <div class="task-column" id="task_done">
                         <div class="task-header">
                             <h4 class="task-title">Done</h4>
                         </div>
-                        <div class="task_list" id="task_done_list"></div>
-                        <div class="task" draggable="true">Task 5</div>
+                        <div class="task_list" id="task_done_list">
+                            {% for taskd in t_done %}
+                            <div class="task" id="{{ taskd.id }}" draggable="true">{{ taskd.title }}</div>
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+        {% include "polls/add_task.html" %}
+        {% include "polls/update_task.html" %}
+        <script src="{% static 'js/board.js' %}"></script>
 </body>
+
 </html>

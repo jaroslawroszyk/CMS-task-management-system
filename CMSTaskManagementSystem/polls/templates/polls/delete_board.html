@@ -1,0 +1,4 @@
+<form id="delete-form" method="POST" action="{% url 'delete_board' %}">
+    {% csrf_token %}
+    <input type="hidden" id="board_id" name="board_id" value="">
+</form>

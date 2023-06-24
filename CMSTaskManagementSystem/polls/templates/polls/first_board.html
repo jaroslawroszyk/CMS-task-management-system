@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Boards</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="banner">
+            <div class="dropdown user-profile">
+                <button id="logout" class="btn btn-primary" onclick="location.href='{% url 'logout' %}'">Logout</button>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+          <div class="col-md-6">
+            <h1 class="text-center">Time to create your first board!</h1>
+            <div class="card">
+              <div class="card-body">
+                <p class="text-center">
+                    it looks like you haven't created any board, nor have you been added to one  
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="container mt-3">
+        <div class="row justify-content-center">
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Board creation</h5>
+                <form id="addBoardForm" method="POST" action="{% url 'add_board' %}">
+        {% csrf_token %}
+    <div class="form-group">
+      <label for="nameInput">Name:</label>
+      <input type="text" class="form-control" id="boardName" name="board_name" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+      
+
+
+
+
+    <script src="{% static 'js/board.js' %}"></script>
+</body>
+</html>

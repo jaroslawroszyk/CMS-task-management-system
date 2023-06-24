@@ -1,0 +1,54 @@
+<html>
+<head>
+  <title>Registration Form</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.0/css/bootstrap.min.css">
+  <style>
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .form-box {
+      max-width: 500px;
+      width: 100%;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="form-box">
+      <h2 class="text-center">Register</h2>
+      <form method="POST">
+        {% csrf_token %}
+        <table class="table">
+          <tr>
+            <td><label for="{{ form.username.id_for_label }}">Username</label></td>
+            <td>{{ form.username }}</td>
+          </tr>
+          <tr>
+            <td><label for="{{ form.email.id_for_label }}">Email</label></td>
+            <td>{{ form.email }}</td>
+          </tr>
+          <tr>
+            <td><label for="{{ form.password1.id_for_label }}">Password</label></td>
+            <td>{{ form.password1 }}</td>
+          </tr>
+          <tr>
+            <td><label for="{{ form.password2.id_for_label }}">Confirm Password</label></td>
+            <td>{{ form.password2 }}</td>
+          </tr>
+        </table>
+        <div class="text-center">
+          <button class="btn btn-primary" type="submit">Register</button>
+          <a class="btn btn-secondary" href="/">Login</a>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<div class="modal task_modal" id="taskModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">Task Details</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form id="taskForm">
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input type="text" class="form-control" id="title" name="title">
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea class="form-control" id="description" name="description"></textarea>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button id="deleteTaskBtn" class="btn btn-danger" data-dismiss="modal">Delete Task</button>
+      <button id="submitForm" class="btn btn-primary">Save</button>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  $(document).ready(function() {
+  var modal = $('#taskModal');
+  var closeButton = modal.find('.close');
+  var form = $('#taskForm');
+  var taskId = window.location.pathname.split('/')[2];;
+
+
+  $(document).on('click', '.task', function() {
+    taskId = $(this).attr('id');
+
+    $.ajax({
+      url: '/get_task/' + taskId + '/',
+      method: 'GET',
+      success: function(response) {
+        form.find('#title').val(response.title);
+        form.find('#description').val(response.description);
+
+        
+      },
+      error: function(error) {
+        console.error(error);
+      }
+    });
+
+    modal.modal('show');
+  });
+
+  closeButton.on('click', function() {
+    modal.modal('hide');
+  });
+
+  $('#deleteTaskBtn').on('click', function() {
+      $.ajax({
+        url: '/delete_task/' + taskId + '/',
+        method: 'POST',
+        headers: {
+          'X-CSRFToken': getCookie('csrftoken')
+        },
+        success: function(response) {
+          console.log(response);
+
+          modal.modal('hide');
+          location.reload(); 
+          
+        },
+        error: function(error) {
+          console.error(error);
+          
+        }
+      });
+  });
+
+  $('#submitForm').on('click', function() {
+    var formData = form.serialize();
+
+    $.ajax({
+      url: '/update_task/' + taskId + '/',
+      method: 'POST',
+      headers: {
+        'X-CSRFToken': getCookie('csrftoken')
+      },
+      data: formData,
+      success: function(response) {
+        console.log(response);
+        modal.modal('hide');
+        location.reload(); 
+      },
+      error: function(error) {
+        console.error(error);
+      }
+    });
+  });
+
+  function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      var cookies = document.cookie.split(';');
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+});
+</script>

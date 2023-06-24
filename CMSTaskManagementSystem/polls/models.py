@@ -12,7 +12,7 @@ class Tasks(models.Model):
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=300)
     state = models.DecimalField(max_digits=1, decimal_places=0)
-    #asigneduser = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True, default=None)
+    assigneduser = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True, default=None)
 
 class Asigments(models.Model):
     bid = models.ForeignKey('Boards', on_delete=models.CASCADE)
